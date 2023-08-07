@@ -18,6 +18,11 @@ nun   4       7       4       9       7       11      4     => hashset: new Set(
 
 */ 
 
+// Time: O(n) where n is length of linked list 
+// Space: O(n) 
+
+// WHEN LINKED LIST IS NOT SORTED 
+
 function removeDuplicates(head) {
   // if head is null we return null 
   // initialize hashset and add head's value 
