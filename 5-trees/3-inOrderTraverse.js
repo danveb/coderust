@@ -16,6 +16,46 @@ output = [25, 35, 50, 75, 100, 200]
 
 */ 
 
+// Recursive approach (BRUTE FORCE) 
+// 1. inner function to perform "inorder" traversal 
+// - base case: If node is at null point (leaf nodes) we can return null since nothing more to visit 
+// - recursively traverse LEFT -> ROOT -> RIGHT 
+// 2. main function 
+// - edge case: if no binary tree, return [] 
+// - initialize output [] 
+// - call "inorder" inner function with root
+// - return output [] 
+
+// Time: O(n) where n is length of binary tree
+// Space: O(n) we recursively traverse the tree
+
+function inorderTraversal(root) {
+  // edge case: if root is null return [] 
+  if(root === null) return []; 
+  // initialize empty output [] 
+  const output = []; 
+
+  // inorder traversal function (LEFT -> ROOT -> RIGHT) 
+  function inorder(node) {
+    // base case: if root is null we can always return null 
+    if(node === null) return null; 
+    // recursively traverse LEFT -> ROOT -> RIGHT 
+    inorder(node.left); 
+    // console.log(node.data); 
+    // push node's value to output to have this marked as seen 
+    output.push(node.data); 
+    inorder(node.right); 
+  }; 
+
+  // call inorder inner function 
+  inorder(root); 
+
+  // return output [] 
+  return output; 
+}
+
+// ====================================================================================
+
 // INORDER -> DFS TRAVERSAL WITH A STACK
 // PUSH POP FROM STACK 
 
@@ -26,9 +66,10 @@ output = [25, 35, 50, 75, 100, 200]
 // - [25, 35, 50, 75, 100, 200] 
  
 // Time: O(n) where n is # of nodes we visit 
-// Space: O(n) we use a stack to check visited nodes
+// Space: O(h) where h is the height of the tree
+// At worst, O(n) for an unbalanced tree
 
-function iterativeInorder(root) {
+function inorderTraversal(root) {
   // edge case: if no binary tree return []
   // initialize a stack [] 
   // initialize output [] 
@@ -45,37 +86,24 @@ function iterativeInorder(root) {
   if(root === null) return [];
   const stack = [];
   const output = []; 
+
   let current = root; 
+
   while(stack.length || current !== null) {
     // keep looping for current 
     while(current !== null) {
+      // push current (root) to stack 
       stack.push(current); 
+      // move current to LEFT FIRST
       current = current.left; 
     }; 
 
     // pop current from the stack 
     stack.pop(current); 
+    // push current node's data/value to [] 
     output.push(current.data); 
+    // move current to RIGHT SECOND
     current = current.right; 
   };
   return output; 
-}
-
-// OR RECURSIVE... 
-
-function recursiveInorder(root) {
-  const response = []; 
-  inorder(root); 
-
-  // basic formula for inorder recursive
-  function inorder(root) {
-    // base case: if root is null we return null 
-    if(root === null) return null; 
-    // recursively start with LEFT -> ROOT -> RIGHT 
-    inorder(root.left); 
-    // console.log(root.val); 
-    response.push(root.data); 
-    inorder(root.right); 
-  };
-  return response; 
 }
