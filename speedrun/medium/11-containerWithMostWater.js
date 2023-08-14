@@ -92,5 +92,4 @@ function maxArea(height) {
   return maxA; 
 }
 
-// console.log(maxArea([20, 30, 9, 69])) // 60
-// console.log(maxArea([1, 8, 6, 2, 5, 4, 8, 3, 7])) // 49
+// The only way we can hold more water when the horizontal distance between two pointers decrease, is to increase the vertical distance min(height[left], height[right]). We wish to keep the taller line from height[left], height[right] and continue searching for another line that's taller than the lower line, which potentially forms a larger container.
