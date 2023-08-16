@@ -62,16 +62,53 @@ num   7   1   5   3   6   4
 // Time: O(n) where n is length of input array
 // Space: O(1) 
 
-function findBuySellStockPrices(stockNums) {
-  let minBuy = stockNums[0]; 
-  let currentProfit = 0;
-  let maxProfit = 0;
-  for(let i = 1; i < stockNums.length; i++) {
-    currentProfit = stockNums[i] - minBuy; 
-    maxProfit = Math.max(currentProfit, maxProfit); 
-    minBuy = Math.min(stockNums[i], minBuy); 
-  };
-  return maxProfit; 
-}
+// function findBuySellStockPrices(stockNums) {
+//   let minBuy = stockNums[0]; 
+//   let currentProfit = 0;
+//   let maxProfit = 0;
+//   for(let i = 1; i < stockNums.length; i++) {
+//     currentProfit = stockNums[i] - minBuy; 
+//     maxProfit = Math.max(currentProfit, maxProfit); 
+//     minBuy = Math.min(stockNums[i], minBuy); 
+//   };
+//   return maxProfit; 
+// }
 
-console.log(findBuySellStockPrices([7, 1, 5, 3, 6, 4])) // 5
+// console.log(findBuySellStockPrices([7, 1, 5, 3, 6, 4])) // 5
+
+// Given stockNums array of prices return an array with [day of maxSell, day of minBuy] 
+
+let findBuySellStockPrices = function(stockNums) {
+  // Initializations
+  let currentBuy = stockNums[0];
+  let globalSell = stockNums[1];
+
+  // Calculating the global profit
+  let globalProfit = globalSell - currentBuy;
+  
+  // Initializing current_profit with minimum value
+  let currentProfit = 0;
+  
+  //  Looping over stocks to find best buy and selling price
+  for (let i = 1; i < stockNums.length; i++) {
+    // Calculating the current profit  
+    currentProfit = stockNums[i] - currentBuy;
+      
+    // Current profit is greater than the global profit
+    if (currentProfit > globalProfit) {
+      globalProfit = currentProfit;
+      globalSell = stockNums[i];
+    }
+    
+    //  We will always maximise margin relative to the lowest stock price we can find
+    // So whenever we find a stock price lower than the current buying price, 
+    // we adopt it as the current buying price
+    if (currentBuy > stockNums[i]) {
+      currentBuy = stockNums[i];
+    } 
+  }
+  // Tuple having buy price and sell price
+  return [globalSell - globalProfit, globalSell];
+};
+
+console.log(findBuySellStockPrices([7, 1, 5, 3, 6, 4]))
