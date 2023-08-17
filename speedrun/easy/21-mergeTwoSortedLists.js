@@ -24,25 +24,57 @@ output = [1, 1, 2, 3, 4, 4]
 // Time: O(n + m) where n + m represents 2 linked lists
 // Space: O(1) 
 
+class Node {
+  constructor(val) {
+    this.val = val; 
+    this.next = null; 
+  }
+}
+
+// function mergeTwoLists(list1, list2) {
+//   // edge case: if either list is null we can return either list
+//   if(list1 === null) return list2
+//   if(list2 === null) return list1 
+//   let dummyHead = new Node(-1); 
+//   let head = dummyHead; 
+//   // keep looping while either lists are NOT null 
+//   while(list1 !== null && list2 !== null) {
+//     // check which list goes first based on <= value 
+//     if(list1.val <= list2.val) {
+//       head.next = list1; 
+//       list1 = list1.next 
+//     } else {
+//       head.next = list2; 
+//       list2 = list2.next; 
+//     };
+//   };
+//   // if one of the lists is null we'll go with the other list anyway
+//   if(list1 !== null) head.next = list1
+//   if(list2 !== null) head.next = list2
+//   return dummyHead.next; 
+// }
+
 function mergeTwoLists(list1, list2) {
-  // edge case: if either list is null we can return either list
-  if(list1 === null) return list2
-  if(list2 === null) return list1 
-  let dummyHead = new Node(-1); 
-  let head = dummyHead; 
-  // keep looping while either lists are NOT null 
+  // edge case: if list1 is null we can return list2 
+  // edge case: if list2 is null we can return list1 
+  if(list1 === null) return list2; 
+  if(list2 === null) return list1; 
+  // initialize head as a new Node 
+  const head = new Node(0); 
+  // set a current node to the head 
+  let current = head; 
   while(list1 !== null && list2 !== null) {
-    // check which list goes first based on <= value 
     if(list1.val <= list2.val) {
-      head.next = list1; 
-      list1 = list1.next 
+      current.next = new Node(list1.val); 
+      list1 = list1.next; 
     } else {
-      head.next = list2; 
+      current.next = new Node(list2.val); 
       list2 = list2.next; 
     };
+    current = current.next; 
   };
-  // if one of the lists is null we'll go with the other list anyway
-  if(list1 !== null) head.next = list1
-  if(list2 !== null) head.next = list2
-  return dummyHead.next; 
+  current.next = list1 || list2; 
+  return head.next; 
 }
+
+module.exports = mergeTwoLists
