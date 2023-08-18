@@ -33,6 +33,16 @@ const list6 = {
         val: 4, next: {
           val: 6, next: null }}}}}
 
+// TEST #3 
+function size(linkedList) {
+  let count = 0;
+  while(linkedList !== null) {
+    count += 1
+    linkedList = linkedList.next; 
+  }; 
+  return count; 
+};
+
 describe("test mergeTwoLists #21", () => {
   test("creates a new sorted linked list", () => {
     expect(mergeTwoLists(list1, list2)).toEqual(list3); 
@@ -41,4 +51,9 @@ describe("test mergeTwoLists #21", () => {
   test("where linked lists have different lengths", () => {
     expect(mergeTwoLists(list4, list5)).toEqual(list6); 
   }); 
+
+  test("size of merged linked lists", () => {
+    expect(mergeTwoLists(list4, list5)).toEqual(list6); 
+    expect(size(list6)).toEqual(5); 
+  });
 }); 
