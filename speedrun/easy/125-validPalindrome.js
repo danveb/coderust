@@ -16,41 +16,41 @@
 // Time: O(n) 
 // Space: O(n) 
 
-function isPalindrome(s) {
-  // edge case: if empty string return false 
-  if(s.length === 0) return false; 
-  let cleanedStr1 = cleanStr(s); 
-  let cleanedStr2 = cleanStrRev(s); 
-  return cleanedStr1 === cleanedStr2; 
-}
+// function isPalindrome(s) {
+//   // edge case: if empty string return false 
+//   if(s.length === 0) return false; 
+//   let cleanedStr1 = cleanStr(s); 
+//   let cleanedStr2 = cleanStrRev(s); 
+//   return cleanedStr1 === cleanedStr2; 
+// }
 
-function cleanStr(str) {
-  if(str.length === 0) return null; 
-  let newStr = ""; 
-  let alphaNumAllowed = "abcdefghijklmnopqrstuvwxyz0123456789"; 
-  for(let i = 0; i < str.length; i++) {
-    let lowerStr = str.toLowerCase(); 
-    // only allow alphaNum to newStr 
-    if(alphaNumAllowed.indexOf(lowerStr[i]) !== -1) {
-      newStr += lowerStr[i]; 
-    }
-  };
-  return newStr; 
-}
+// function cleanStr(str) {
+//   if(str.length === 0) return null; 
+//   let newStr = ""; 
+//   let alphaNumAllowed = "abcdefghijklmnopqrstuvwxyz0123456789"; 
+//   for(let i = 0; i < str.length; i++) {
+//     let lowerStr = str.toLowerCase(); 
+//     // only allow alphaNum to newStr 
+//     if(alphaNumAllowed.indexOf(lowerStr[i]) !== -1) {
+//       newStr += lowerStr[i]; 
+//     }
+//   };
+//   return newStr; 
+// }
 
-function cleanStrRev(str) {
-  if(str.length === 0) return null; 
-  let newStr = ""; 
-  let alphaNumAllowed = "abcdefghijklmnopqrstuvwxyz0123456789"; 
-  for(let i = str.length - 1; i >= 0; i--) {
-    let lowerStr = str.toLowerCase(); 
-    // only allow alphaNum to newStr 
-    if(alphaNumAllowed.indexOf(lowerStr[i]) !== -1) {
-      newStr += lowerStr[i]; 
-    }
-  };
-  return newStr; 
-}
+// function cleanStrRev(str) {
+//   if(str.length === 0) return null; 
+//   let newStr = ""; 
+//   let alphaNumAllowed = "abcdefghijklmnopqrstuvwxyz0123456789"; 
+//   for(let i = str.length - 1; i >= 0; i--) {
+//     let lowerStr = str.toLowerCase(); 
+//     // only allow alphaNum to newStr 
+//     if(alphaNumAllowed.indexOf(lowerStr[i]) !== -1) {
+//       newStr += lowerStr[i]; 
+//     }
+//   };
+//   return newStr; 
+// }
 
 // Can we do better? 
 // Optimal
@@ -60,30 +60,63 @@ function cleanStrRev(str) {
 // Time: O(n) 
 // Space: O(n) 
 
+// function isPalindrome(s) {
+//   if(s.length === 0) return false 
+//   let cleanedStr = cleanStr(s); 
+//   let left = 0;
+//   let right = s.length - 1;
+//   while(left <= right) {
+//     // check: if s[left] === s[right] we know it's a palindrome 
+//     if(cleanedStr[left] !== cleanedStr[right]) {
+//       return false; 
+//     };
+//     left++
+//     right-- 
+//   }
+//   return true; 
+// }
+
+// function cleanStr(str) {
+//   let newStr = ""; 
+//   let alphaNumChars = "0123456789abcdefghijklmnopqrstuvwxyz"; 
+//   for(let i = 0; i < str.length; i++) {
+//     let lowerStr = str[i].toLowerCase(); 
+//     if(alphaNumChars.indexOf(lowerStr) !== -1) {
+//       newStr += lowerStr; 
+//     };
+//   }
+//   return newStr; 
+// }
+
+// REFACTOR to contain 2 functions in 1... 
 function isPalindrome(s) {
-  if(s.length === 0) return false 
-  let cleanedStr = cleanStr(s); 
-  let left = 0;
-  let right = s.length - 1;
-  while(left <= right) {
-    // check: if s[left] === s[right] we know it's a palindrome 
-    if(cleanedStr[left] !== cleanedStr[right]) {
-      return false; 
-    };
-    left++
-    right-- 
+  // edge case: if s is empty we return false 
+  if(s.length === 0) return false; 
+  
+  // clean the input string first and use newStr built-up
+  let newStr = ""; 
+  let alphaNumChars = "abcdefghijklmnopqrstuvwxyz0123456789"; 
+  for(let i = 0; i < s.length; i++) {
+    // turn lowercase each character 
+    let lowerChar = s[i].toLowerCase(); 
+    // check: is lowerChar present in alphaNumChars? 
+    if(alphaNumChars.indexOf(lowerChar) !== -1) {
+      newStr += lowerChar; 
+    }
   }
+
+  // initialize 2 pointers LEFT/RIGHT 
+  let left = 0;
+  let right = newStr.length - 1; 
+  while(left < right) {
+    // check: if newStr[LEFT] !== newStr[RIGHT] we know they don't match 
+    if(newStr[left] !== newStr[right]) {
+      return false; 
+    } 
+    left++
+    right--
+  };
   return true; 
 }
 
-function cleanStr(str) {
-  let newStr = ""; 
-  let alphaNumChars = "0123456789abcdefghijklmnopqrstuvwxyz"; 
-  for(let i = 0; i < str.length; i++) {
-    let lowerStr = str[i].toLowerCase(); 
-    if(alphaNumChars.indexOf(lowerStr) !== -1) {
-      newStr += lowerStr; 
-    };
-  }
-  return newStr; 
-}
+module.exports = isPalindrome

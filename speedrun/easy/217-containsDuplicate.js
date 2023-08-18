@@ -13,16 +13,16 @@
 // Time: O(n^2) we use a nested loop; for each element in the array we iterate over up to "n" other elements 
 // Space: O(1) we don't incur extra memory 
 
-function containsDuplicate(nums) {
-  // edge case: if nums array is empty? return false 
-  if(nums.length === 0) return false; 
-  for(let i = 0; i < nums.length; i++) {
-    for(let j = i + 1; j < nums.length; j++) {
-      if(nums[i] === nums[j]) return true; 
-    }
-  }; 
-  return false; 
-}
+// function containsDuplicate(nums) {
+//   // edge case: if nums array is empty? return false 
+//   if(nums.length === 0) return false; 
+//   for(let i = 0; i < nums.length; i++) {
+//     for(let j = i + 1; j < nums.length; j++) {
+//       if(nums[i] === nums[j]) return true; 
+//     }
+//   }; 
+//   return false; 
+// }
 
 // Optimal 
 // - use a hashmap where we store all the values 
@@ -34,20 +34,20 @@ function containsDuplicate(nums) {
 // Time: O(n) 
 // Space: O(n) we use a hashmap 
 
-function containsDuplicate(nums) {
-  const hashmap = new Map(); 
-  for(let i = 0; i < nums.length; i++) {
-    // check: if hashmap HAS current element 
-    if(hashmap.has(nums[i])) {
-      // return true
-      return true; 
-    } else {
-      // else we'll add it to hashmap 
-      hashmap.set(nums[i]); 
-    };
-  }; 
-  return false; 
-}
+// function containsDuplicate(nums) {
+//   const hashmap = new Map(); 
+//   for(let i = 0; i < nums.length; i++) {
+//     // check: if hashmap HAS current element 
+//     if(hashmap.has(nums[i])) {
+//       // return true
+//       return true; 
+//     } else {
+//       // else we'll add it to hashmap 
+//       hashmap.set(nums[i]); 
+//     };
+//   }; 
+//   return false; 
+// }
 
 // Another optimal? 
 // - use a hashset and add each element to the Set() 
@@ -68,3 +68,5 @@ function containsDuplicate(nums) {
     return true; 
   }
 }
+
+module.exports = containsDuplicate

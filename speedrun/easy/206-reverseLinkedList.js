@@ -42,3 +42,5 @@ function reverseList(head) {
   // return prev as the new head of linked list 
   return prev
 }
+
+module.exports = reverseList
