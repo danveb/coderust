@@ -93,3 +93,5 @@ function maxArea(height) {
 }
 
 // The only way we can hold more water when the horizontal distance between two pointers decrease, is to increase the vertical distance min(height[left], height[right]). We wish to keep the taller line from height[left], height[right] and continue searching for another line that's taller than the lower line, which potentially forms a larger container.
+
+module.exports = maxArea
